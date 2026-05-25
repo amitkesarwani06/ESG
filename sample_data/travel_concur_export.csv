@@ -1,0 +1,19 @@
+Employee ID,Expense Type,Travel Date,From,To,Distance,Distance Unit,Class of Service,Nights,Hotel Name,Amount,Currency,Cost Center
+EMP-1042,Airfare,01/15/2024,BOM,DEL,1400,km,Coach,,,12500,INR,CC-SALES
+EMP-1042,Airfare,01/18/2024,DEL,BOM,1400,km,Coach,,,11800,INR,CC-SALES
+EMP-1085,Airfare,01/20/2024,BOM,LHR,9360,km,Business,,,185000,INR,CC-EXEC
+EMP-1085,Hotel,01/20/2024,,,,,, 3,Marriott London,45000,INR,CC-EXEC
+EMP-1085,Airfare,01/24/2024,LHR,BOM,9360,km,Business,,,190000,INR,CC-EXEC
+EMP-2031,Airfare,02/05/2024,New Delhi,SIN,5620,km,Economy,,,32000,INR,CC-OPS
+EMP-2031,Hotel,02/05/2024,,,,,, 2,Marina Bay Sands,28000,INR,CC-OPS
+EMP-3017,Car Rental,02/10/2024,,,120,km,,,,,5200,INR,CC-SALES
+EMP-3017,Airfare,02/12/2024,BLR,HYD,570,km,Coach,,,4800,INR,CC-SALES
+EMP-4052,Airfare,02/20/2024,BOM,KJFK,13400,miles,Economy,,,65000,INR,CC-EXEC
+EMP-4052,Hotel,02/20/2024,,,,,, 5,Hilton Midtown New York,75000,INR,CC-EXEC
+EMP-5001,Taxi,02/25/2024,,,35,km,,,,,850,INR,CC-ADMIN
+EMP-5001,Airfare,02/28/2024,BOM,BOM,0,km,Economy,,,1200,INR,CC-ADMIN
+EMP-6088,Airfare,03/01/2024,MUM,DXB,1929,km,Business Class,,,95000,INR,CC-BIZ-DEV
+EMP-7011,Train,03/05/2024,,,1423,km,,,,,2800,INR,CC-OPS
+EMP-8022,Hotel,03/08/2024,,,,,, 0,Novotel Mumbai,12000,INR,CC-SALES
+EMP-9001,Airfare,03/10/2024,,,50000,km,Economy,,,8000,INR,CC-SALES
+EMP-1042,Hotel,03/15/2024,,,,,,,Oberoi Delhi,18500,INR,CC-SALES

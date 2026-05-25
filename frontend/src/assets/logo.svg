@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#22C55E"/>
+      <stop offset="50%"  stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Left triangle (play-button style) -->
+  <polygon
+    points="8,12 8,62 44,38"
+    stroke="url(#logoGrad)" stroke-width="5.5"
+    stroke-linejoin="round" stroke-linecap="round"
+    fill="none"
+  />
+
+  <!-- Upper-right angular chevron -->
+  <polyline
+    points="44,38 68,14 88,14 88,28 64,28"
+    stroke="url(#logoGrad)" stroke-width="5.5"
+    stroke-linejoin="round" stroke-linecap="round"
+    fill="none"
+  />
+
+  <!-- Lower-right angular chevron / diamond bottom -->
+  <polyline
+    points="44,38 68,62 92,62 92,86 52,86 28,62"
+    stroke="url(#logoGrad)" stroke-width="5.5"
+    stroke-linejoin="round" stroke-linecap="round"
+    fill="none"
+  />
+</svg>

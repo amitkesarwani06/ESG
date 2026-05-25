@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: esg-backend
+    env: python
+    plan: free
+    region: singapore  # Closest to India
+
+    # Build: install deps, run migrations, collect static files
+    buildCommand: |
+      pip install -r requirements.txt &&
+      python manage.py migrate &&
+      python manage.py collectstatic --noinput &&
+      python manage.py shell -c "
+      from core.models import SourceType
+      SourceType.objects.get_or_create(code='sap_fuel', defaults={'label': 'SAP Fuel \& Procurement', 'scope': 1})
+      SourceType.objects.get_or_create(code='utility_elec', defaults={'label': 'Utility Electricity', 'scope': 2})
+      SourceType.objects.get_or_create(code='corporate_travel', defaults={'label': 'Corporate Travel', 'scope': 3})
+      print('Source types seeded.')
+      "
+
+    startCommand: gunicorn config.wsgi:application --workers 2 --bind 0.0.0.0:$PORT
+
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_HOSTS
+        value: esg-backend.onrender.com
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://esg-platform.vercel.app  # Update with actual Vercel URL
+      - key: DATABASE_URL
+        fromDatabase:
+          name: esg-db
+          property: connectionString
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+
+databases:
+  - name: esg-db
+    plan: free
+    region: singapore
