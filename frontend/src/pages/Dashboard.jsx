@@ -5,15 +5,15 @@ import { getStats } from "../api/batches";
 import StatusBadge from "../components/records/StatusBadge";
 
 const STAT_CARDS = [
-  { key: "pending",    label: "Pending Review", accent: "accent-pending",    color: "#F59E0B" },
-  { key: "suspicious", label: "Suspicious",     accent: "accent-suspicious", color: "#EF4444" },
-  { key: "approved",   label: "Approved",       accent: "accent-approved",   color: "#10B981" },
-  { key: "locked",     label: "Locked",         accent: "accent-locked",     color: "#6366F1" },
+  { key: "pending", label: "Pending Review", accent: "accent-pending", color: "#F59E0B" },
+  { key: "suspicious", label: "Suspicious", accent: "accent-suspicious", color: "#EF4444" },
+  { key: "approved", label: "Approved", accent: "accent-approved", color: "#10B981" },
+  { key: "locked", label: "Locked", accent: "accent-locked", color: "#6366F1" },
 ];
 
 const SCOPE_MAP = {
-  sap_fuel:         { scope: 1, label: "SAP Fuel & Procurement" },
-  utility_elec:     { scope: 2, label: "Utility Electricity" },
+  sap_fuel: { scope: 1, label: "SAP Fuel & Procurement" },
+  utility_elec: { scope: 2, label: "Utility Electricity" },
   corporate_travel: { scope: 3, label: "Corporate Travel" },
 };
 
@@ -41,8 +41,8 @@ export default function Dashboard() {
     );
   }
 
-  const statusCounts  = stats?.status_counts  || {};
-  const co2eBySource  = stats?.co2e_by_source || [];
+  const statusCounts = stats?.status_counts || {};
+  const co2eBySource = stats?.co2e_by_source || [];
   const recentBatches = stats?.recent_batches || [];
 
   const totalCo2eKg = co2eBySource.reduce((s, x) => s + (parseFloat(x.total_co2e_kg) || 0), 0);
@@ -57,7 +57,7 @@ export default function Dashboard() {
         </div>
         <Link to="/upload" className="btn btn-primary">
           <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
           </svg>
           Upload Data
         </Link>
@@ -93,7 +93,7 @@ export default function Dashboard() {
         {co2eBySource.length === 0 ? (
           <div className="empty-state" style={{ padding: "28px 0" }}>
             <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" style={{ opacity: 0.3 }}>
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" />
             </svg>
             <span style={{ fontSize: 13 }}>No emissions data yet. <Link to="/upload" style={{ color: "var(--color-accent)" }}>Upload a file →</Link></span>
           </div>

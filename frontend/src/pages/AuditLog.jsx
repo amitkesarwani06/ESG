@@ -3,12 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import { getAuditLog } from "../api/records";
 
 const ACTION_COLOR = {
-  status_changed:   "#10B981",
-  batch_ingested:   "#3B82F6",
-  batch_uploaded:   "#6366F1",
-  record_locked:    "#8B5CF6",
-  record_approved:  "#10B981",
-  record_rejected:  "#EF4444",
+  status_changed: "#10B981",
+  batch_ingested: "#3B82F6",
+  batch_uploaded: "#6366F1",
+  record_locked: "#8B5CF6",
+  record_approved: "#10B981",
+  record_rejected: "#EF4444",
 };
 
 export default function AuditLogPage() {
@@ -44,8 +44,8 @@ export default function AuditLogPage() {
         {logs.length === 0 ? (
           <div className="empty-state">
             <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" style={{ opacity: 0.25 }}>
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-              <polyline points="14 2 14 8 20 8"/>
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
             </svg>
             <span style={{ fontSize: 13 }}>No audit events yet.</span>
           </div>
