@@ -50,69 +50,71 @@ export default function AuditLogPage() {
             <span style={{ fontSize: 13 }}>No audit events yet.</span>
           </div>
         ) : (
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>Time</th>
-                <th>Entity</th>
-                <th>Action</th>
-                <th>Actor</th>
-                <th>Change</th>
-              </tr>
-            </thead>
-            <tbody>
-              {logs.map((log) => (
-                <tr key={log.id}>
-                  <td style={{ whiteSpace: "nowrap" }}>
-                    <span className="font-mono" style={{ fontSize: 11, color: "var(--color-text-muted)" }}>
-                      {new Date(log.occurred_at).toLocaleString("en-IN")}
-                    </span>
-                  </td>
-                  <td>
-                    <span style={{
-                      fontSize: 11, fontFamily: "var(--font-mono)",
-                      color: "var(--color-text-secondary)",
-                      background: "rgba(255,255,255,0.04)",
-                      padding: "2px 6px", borderRadius: 4,
-                    }}>
-                      {log.entity_type}
-                    </span>
-                    <div style={{ fontSize: 10, color: "var(--color-text-muted)", fontFamily: "var(--font-mono)", marginTop: 3 }}>
-                      {String(log.entity_id).slice(0, 8)}…
-                    </div>
-                  </td>
-                  <td>
-                    <code style={{
-                      fontSize: 11,
-                      background: "rgba(16,185,129,0.08)",
-                      padding: "2px 7px",
-                      borderRadius: 4,
-                      color: ACTION_COLOR[log.action] || "var(--color-accent)",
-                      fontFamily: "var(--font-mono)",
-                    }}>
-                      {log.action}
-                    </code>
-                  </td>
-                  <td style={{ fontSize: 12.5, color: "var(--color-text-secondary)" }}>
-                    {log.actor || "—"}
-                  </td>
-                  <td style={{ fontSize: 11 }}>
-                    {log.old_value && log.new_value ? (
-                      <span>
-                        <span style={{ color: "#EF4444", fontFamily: "var(--font-mono)" }}>{JSON.stringify(log.old_value)}</span>
-                        <span style={{ color: "var(--color-text-muted)", margin: "0 4px" }}>→</span>
-                        <span style={{ color: "#10B981", fontFamily: "var(--font-mono)" }}>{JSON.stringify(log.new_value)}</span>
-                      </span>
-                    ) : (
-                      <span style={{ fontFamily: "var(--font-mono)", color: "var(--color-text-muted)" }}>
-                        {JSON.stringify(log.new_value || log.old_value)}
-                      </span>
-                    )}
-                  </td>
+          <div className="data-table-wrapper">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Entity</th>
+                  <th>Action</th>
+                  <th>Actor</th>
+                  <th>Change</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {logs.map((log) => (
+                  <tr key={log.id}>
+                    <td style={{ whiteSpace: "nowrap" }}>
+                      <span className="font-mono" style={{ fontSize: 11, color: "var(--color-text-muted)" }}>
+                        {new Date(log.occurred_at).toLocaleString("en-IN")}
+                      </span>
+                    </td>
+                    <td>
+                      <span style={{
+                        fontSize: 11, fontFamily: "var(--font-mono)",
+                        color: "var(--color-text-secondary)",
+                        background: "rgba(0,0,0,0.04)",
+                        padding: "2px 6px", borderRadius: 4,
+                      }}>
+                        {log.entity_type}
+                      </span>
+                      <div style={{ fontSize: 10, color: "var(--color-text-muted)", fontFamily: "var(--font-mono)", marginTop: 3 }}>
+                        {String(log.entity_id).slice(0, 8)}…
+                      </div>
+                    </td>
+                    <td>
+                      <code style={{
+                        fontSize: 11,
+                        background: "rgba(16,185,129,0.08)",
+                        padding: "2px 7px",
+                        borderRadius: 4,
+                        color: ACTION_COLOR[log.action] || "var(--color-accent)",
+                        fontFamily: "var(--font-mono)",
+                      }}>
+                        {log.action}
+                      </code>
+                    </td>
+                    <td style={{ fontSize: 12.5, color: "var(--color-text-secondary)" }}>
+                      {log.actor || "—"}
+                    </td>
+                    <td style={{ fontSize: 11 }}>
+                      {log.old_value && log.new_value ? (
+                        <span>
+                          <span style={{ color: "#EF4444", fontFamily: "var(--font-mono)" }}>{JSON.stringify(log.old_value)}</span>
+                          <span style={{ color: "var(--color-text-muted)", margin: "0 4px" }}>→</span>
+                          <span style={{ color: "#10B981", fontFamily: "var(--font-mono)" }}>{JSON.stringify(log.new_value)}</span>
+                        </span>
+                      ) : (
+                        <span style={{ fontFamily: "var(--font-mono)", color: "var(--color-text-muted)" }}>
+                          {JSON.stringify(log.new_value || log.old_value)}
+                        </span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>

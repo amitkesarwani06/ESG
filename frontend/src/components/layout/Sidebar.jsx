@@ -55,31 +55,38 @@ const navItems = [
   },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onClose }) {
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar${isOpen ? " open" : ""}`}>
       {/* Logo */}
       <div className="sidebar-logo">
-        {/* Breathe ESG logo */}
-        <div style={{
-          width: 36, height: 36,
-          background: "var(--color-bg-primary)",
-          borderRadius: 9,
-          display: "flex", alignItems: "center", justifyContent: "center",
-          flexShrink: 0,
-          border: "1px solid rgba(16,185,129,0.2)",
-          padding: 4,
-        }}>
-          <img src={logoSvg} alt="Breathe ESG" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
-        </div>
-        <div>
-          <div style={{ fontWeight: 700, fontSize: 14, letterSpacing: "-0.01em" }} className="gradient-text">
-            Breathe ESG
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          {/* Breathe ESG logo */}
+          <div style={{
+            width: 36, height: 36,
+            background: "var(--color-bg-primary)",
+            borderRadius: 9,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            flexShrink: 0,
+            border: "1px solid rgba(16,185,129,0.2)",
+            padding: 4,
+          }}>
+            <img src={logoSvg} alt="Breathe ESG" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
           </div>
-          <div style={{ fontSize: 10, color: "var(--color-text-muted)", marginTop: 1 }}>
-            Data Platform
+          <div>
+            <div style={{ fontWeight: 700, fontSize: 14, letterSpacing: "-0.01em" }} className="gradient-text">
+              Breathe ESG
+            </div>
+            <div style={{ fontSize: 10, color: "var(--color-text-muted)", marginTop: 1 }}>
+              Data Platform
+            </div>
           </div>
         </div>
+
+        {/* Mobile close button */}
+        <button className="sidebar-close-btn" aria-label="Close menu" onClick={onClose}>
+          ✕
+        </button>
       </div>
 
       {/* Navigation */}
@@ -91,6 +98,7 @@ export default function Sidebar() {
             to={path}
             end={path === "/"}
             className={({ isActive }) => `nav-link${isActive ? " active" : ""}`}
+            onClick={onClose}
           >
             <span className="nav-icon">{icon}</span>
             {label}

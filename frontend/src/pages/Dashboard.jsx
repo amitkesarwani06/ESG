@@ -138,47 +138,49 @@ export default function Dashboard() {
             No batches yet. <Link to="/upload" style={{ color: "var(--color-accent)" }}>Upload your first file →</Link>
           </p>
         ) : (
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>File</th>
-                <th>Source</th>
-                <th>Uploaded By</th>
-                <th>Rows</th>
-                <th>Status</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {recentBatches.map((batch) => (
-                <tr key={batch.id}>
-                  <td style={{ maxWidth: 200 }}>
-                    <div className="font-mono truncate" style={{ color: "var(--color-text-primary)", fontSize: 12 }}>
-                      {batch.filename}
-                    </div>
-                    <div className="text-xs text-muted" style={{ marginTop: 2 }}>
-                      {new Date(batch.uploaded_at).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}
-                    </div>
-                  </td>
-                  <td>
-                    {batch.source_type && (
-                      <span className={`scope-badge scope-${batch.source_type.scope}`}>
-                        S{batch.source_type.scope} · {batch.source_type.label}
-                      </span>
-                    )}
-                  </td>
-                  <td style={{ color: "var(--color-text-secondary)", fontSize: 13 }}>{batch.uploaded_by}</td>
-                  <td className="font-mono" style={{ color: "var(--color-text-primary)" }}>{batch.row_count ?? "—"}</td>
-                  <td><StatusBadge status={batch.status} /></td>
-                  <td>
-                    <Link to={`/batches/${batch.id}`} className="btn btn-ghost btn-sm">
-                      Review →
-                    </Link>
-                  </td>
+          <div className="data-table-wrapper">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>File</th>
+                  <th>Source</th>
+                  <th>Uploaded By</th>
+                  <th>Rows</th>
+                  <th>Status</th>
+                  <th></th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {recentBatches.map((batch) => (
+                  <tr key={batch.id}>
+                    <td style={{ maxWidth: 200 }}>
+                      <div className="font-mono truncate" style={{ color: "var(--color-text-primary)", fontSize: 12 }}>
+                        {batch.filename}
+                      </div>
+                      <div className="text-xs text-muted" style={{ marginTop: 2 }}>
+                        {new Date(batch.uploaded_at).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}
+                      </div>
+                    </td>
+                    <td>
+                      {batch.source_type && (
+                        <span className={`scope-badge scope-${batch.source_type.scope}`}>
+                          S{batch.source_type.scope} · {batch.source_type.label}
+                        </span>
+                      )}
+                    </td>
+                    <td style={{ color: "var(--color-text-secondary)", fontSize: 13 }}>{batch.uploaded_by}</td>
+                    <td className="font-mono" style={{ color: "var(--color-text-primary)" }}>{batch.row_count ?? "—"}</td>
+                    <td><StatusBadge status={batch.status} /></td>
+                    <td>
+                      <Link to={`/batches/${batch.id}`} className="btn btn-ghost btn-sm">
+                        Review →
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>

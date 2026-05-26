@@ -51,60 +51,62 @@ export default function Batches() {
             <Link to="/upload" className="btn btn-primary btn-sm" style={{ marginTop: 4 }}>Upload your first file</Link>
           </div>
         ) : (
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>Filename</th>
-                <th>Source Type</th>
-                <th>Uploaded By</th>
-                <th>Date</th>
-                <th>Rows</th>
-                <th>Pending</th>
-                <th>Suspicious</th>
-                <th>Status</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {batches.map((batch) => (
-                <tr key={batch.id}>
-                  <td style={{ maxWidth: 220 }}>
-                    <div className="font-mono truncate" style={{ color: "var(--color-text-primary)", fontSize: 12 }} title={batch.filename}>
-                      {batch.filename}
-                    </div>
-                  </td>
-                  <td>
-                    {batch.source_type && (
-                      <span className={`scope-badge scope-${batch.source_type.scope}`}>
-                        S{batch.source_type.scope} · {batch.source_type.code}
-                      </span>
-                    )}
-                  </td>
-                  <td style={{ color: "var(--color-text-secondary)", fontSize: 13 }}>{batch.uploaded_by}</td>
-                  <td>
-                    <span style={{ fontSize: 12, color: "var(--color-text-muted)", fontFamily: "var(--font-mono)" }}>
-                      {new Date(batch.uploaded_at).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}
-                    </span>
-                  </td>
-                  <td className="font-mono" style={{ color: "var(--color-text-primary)" }}>{batch.row_count ?? "—"}</td>
-                  <td>
-                    {batch.pending_count > 0 && (
-                      <span className="badge badge-pending">{batch.pending_count}</span>
-                    )}
-                  </td>
-                  <td>
-                    {batch.suspicious_count > 0 && (
-                      <span className="badge badge-suspicious">{batch.suspicious_count}</span>
-                    )}
-                  </td>
-                  <td><StatusBadge status={batch.status} /></td>
-                  <td>
-                    <Link to={`/batches/${batch.id}`} className="btn btn-ghost btn-sm">Review →</Link>
-                  </td>
+          <div className="data-table-wrapper">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Filename</th>
+                  <th>Source Type</th>
+                  <th>Uploaded By</th>
+                  <th>Date</th>
+                  <th>Rows</th>
+                  <th>Pending</th>
+                  <th>Suspicious</th>
+                  <th>Status</th>
+                  <th></th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {batches.map((batch) => (
+                  <tr key={batch.id}>
+                    <td style={{ maxWidth: 220 }}>
+                      <div className="font-mono truncate" style={{ color: "var(--color-text-primary)", fontSize: 12 }} title={batch.filename}>
+                        {batch.filename}
+                      </div>
+                    </td>
+                    <td>
+                      {batch.source_type && (
+                        <span className={`scope-badge scope-${batch.source_type.scope}`}>
+                          S{batch.source_type.scope} · {batch.source_type.code}
+                        </span>
+                      )}
+                    </td>
+                    <td style={{ color: "var(--color-text-secondary)", fontSize: 13 }}>{batch.uploaded_by}</td>
+                    <td>
+                      <span style={{ fontSize: 12, color: "var(--color-text-muted)", fontFamily: "var(--font-mono)" }}>
+                        {new Date(batch.uploaded_at).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}
+                      </span>
+                    </td>
+                    <td className="font-mono" style={{ color: "var(--color-text-primary)" }}>{batch.row_count ?? "—"}</td>
+                    <td>
+                      {batch.pending_count > 0 && (
+                        <span className="badge badge-pending">{batch.pending_count}</span>
+                      )}
+                    </td>
+                    <td>
+                      {batch.suspicious_count > 0 && (
+                        <span className="badge badge-suspicious">{batch.suspicious_count}</span>
+                      )}
+                    </td>
+                    <td><StatusBadge status={batch.status} /></td>
+                    <td>
+                      <Link to={`/batches/${batch.id}`} className="btn btn-ghost btn-sm">Review →</Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>

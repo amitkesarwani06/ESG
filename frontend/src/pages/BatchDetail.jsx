@@ -62,27 +62,30 @@ export default function BatchDetail() {
   return (
     <div>
       {/* Header */}
-      <div className="flex items-center gap-4 mb-6">
-        <Link to="/batches" style={{ color: "var(--text-muted)", textDecoration: "none", fontSize: 13 }}>
-          ← Batches
-        </Link>
-        <div style={{ flex: 1 }}>
-          <h1 style={{ fontSize: 18 }}>{batch.filename}</h1>
-          <div className="flex items-center gap-4 mt-1" style={{ fontSize: 12, color: "var(--text-muted)" }}>
-            <span>Uploaded by {batch.uploaded_by}</span>
-            <span>{new Date(batch.uploaded_at).toLocaleString()}</span>
-            {batch.source_type && (
-              <span className={`scope-badge scope-${batch.source_type.scope}`}>
-                S{batch.source_type.scope} · {batch.source_type.label}
-              </span>
-            )}
+      <div className="page-header items-center gap-4 mb-6">
+        <div className="flex items-center gap-3">
+          <Link to="/batches" style={{ color: "var(--text-muted)", textDecoration: "none", fontSize: 13, marginRight: 4 }}>
+            ← Batches
+          </Link>
+          <div>
+            <h1 style={{ fontSize: 18, margin: 0 }}>{batch.filename}</h1>
+            <div className="flex flex-wrap items-center gap-2 mt-1" style={{ fontSize: 12, color: "var(--text-muted)" }}>
+              <span>Uploaded by {batch.uploaded_by}</span>
+              <span style={{ opacity: 0.5 }}>•</span>
+              <span>{new Date(batch.uploaded_at).toLocaleString()}</span>
+              {batch.source_type && (
+                <span className={`scope-badge scope-${batch.source_type.scope}`} style={{ marginLeft: 4 }}>
+                  S{batch.source_type.scope} · {batch.source_type.label}
+                </span>
+              )}
+            </div>
           </div>
         </div>
         <StatusBadge status={batch.status} />
       </div>
 
       {/* Stats bar */}
-      <div className="stat-grid" style={{ gridTemplateColumns: "repeat(5, 1fr)", marginBottom: 20 }}>
+      <div className="stat-grid" style={{ marginBottom: 20 }}>
         {[
           { label: "Total", value: batch.row_count ?? 0 },
           { label: "Pending", value: batch.pending_count ?? 0, color: "var(--status-pending)" },
@@ -100,11 +103,11 @@ export default function BatchDetail() {
       </div>
 
       {/* Layout: table + detail panel */}
-      <div style={{ display: "grid", gridTemplateColumns: selectedRecord ? "1fr 380px" : "1fr", gap: 16 }}>
+      <div className={`batch-detail-grid${selectedRecord ? " has-detail" : ""}`}>
         {/* Record Table */}
         <div className="card" style={{ padding: 0 }}>
           {/* Filter bar */}
-          <div className="flex items-center gap-2" style={{ padding: "12px 16px", borderBottom: "1px solid var(--border)" }}>
+          <div className="flex flex-wrap items-center gap-2" style={{ padding: "12px 16px", borderBottom: "1px solid var(--border)" }}>
             <span style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginRight: 8 }}>
               Records
             </span>
@@ -125,61 +128,63 @@ export default function BatchDetail() {
           ) : records.length === 0 ? (
             <div className="empty-state">No records match this filter.</div>
           ) : (
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Status</th>
-                  <th>Key Fields</th>
-                  <th>CO₂e (kg)</th>
-                  <th>Issues</th>
-                </tr>
-              </thead>
-              <tbody>
-                {records.map((rec) => (
-                  <tr
-                    key={rec.id}
-                    onClick={() => setSelectedRecord(rec)}
-                    style={{
-                      cursor: "pointer",
-                      background: selectedRecord?.id === rec.id ? "var(--bg-hover)" : undefined,
-                    }}
-                  >
-                    <td className="monospace" style={{ color: "var(--text-muted)" }}>
-                      {rec.row_index + 1}
-                    </td>
-                    <td><StatusBadge status={rec.status} /></td>
-                    <td style={{ maxWidth: 250 }}>
-                      <div className="truncate monospace" style={{ fontSize: 11, color: "var(--text-secondary)" }}>
-                        {Object.entries(rec.raw_data)
-                          .filter(([, v]) => v)
-                          .slice(0, 3)
-                          .map(([k, v]) => `${k}=${v}`)
-                          .join(" · ")}
-                      </div>
-                    </td>
-                    <td className="monospace">
-                      {rec.co2e_kg != null
-                        ? <span style={{ color: "var(--accent)" }}>{parseFloat(rec.co2e_kg).toFixed(2)}</span>
-                        : <span style={{ color: "var(--text-muted)" }}>—</span>
-                      }
-                    </td>
-                    <td>
-                      {rec.error_count > 0 && (
-                        <span className="badge badge-suspicious" style={{ marginRight: 4 }}>
-                          {rec.error_count} error{rec.error_count !== 1 ? "s" : ""}
-                        </span>
-                      )}
-                      {rec.issue_count > rec.error_count && (
-                        <span className="badge badge-warning">
-                          {rec.issue_count - rec.error_count} warn
-                        </span>
-                      )}
-                    </td>
+            <div className="data-table-wrapper">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Status</th>
+                    <th>Key Fields</th>
+                    <th>CO₂e (kg)</th>
+                    <th>Issues</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {records.map((rec) => (
+                    <tr
+                      key={rec.id}
+                      onClick={() => setSelectedRecord(rec)}
+                      style={{
+                        cursor: "pointer",
+                        background: selectedRecord?.id === rec.id ? "var(--bg-hover)" : undefined,
+                      }}
+                    >
+                      <td className="monospace" style={{ color: "var(--text-muted)" }}>
+                        {rec.row_index + 1}
+                      </td>
+                      <td><StatusBadge status={rec.status} /></td>
+                      <td style={{ maxWidth: 250 }}>
+                        <div className="truncate monospace" style={{ fontSize: 11, color: "var(--text-secondary)" }}>
+                          {Object.entries(rec.raw_data)
+                            .filter(([, v]) => v)
+                            .slice(0, 3)
+                            .map(([k, v]) => `${k}=${v}`)
+                            .join(" · ")}
+                        </div>
+                      </td>
+                      <td className="monospace">
+                        {rec.co2e_kg != null
+                          ? <span style={{ color: "var(--accent)" }}>{parseFloat(rec.co2e_kg).toFixed(2)}</span>
+                          : <span style={{ color: "var(--text-muted)" }}>—</span>
+                        }
+                      </td>
+                      <td>
+                        {rec.error_count > 0 && (
+                          <span className="badge badge-suspicious" style={{ marginRight: 4 }}>
+                            {rec.error_count} error{rec.error_count !== 1 ? "s" : ""}
+                          </span>
+                        )}
+                        {rec.issue_count > rec.error_count && (
+                          <span className="badge badge-warning">
+                            {rec.issue_count - rec.error_count} warn
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
 
